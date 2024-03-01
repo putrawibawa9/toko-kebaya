@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2024 at 07:14 AM
+-- Generation Time: Mar 01, 2024 at 08:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,25 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_toko`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_admin`
+--
+
+CREATE TABLE `tb_admin` (
+  `id_admin` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_admin`
+--
+
+INSERT INTO `tb_admin` (`id_admin`, `username`, `password`) VALUES
+(1, 'admin', 'admin');
 
 -- --------------------------------------------------------
 
@@ -62,7 +81,6 @@ CREATE TABLE `tb_keranjang` (
 --
 
 INSERT INTO `tb_keranjang` (`keranjang_id`, `keranjang_grup`, `product_id`, `user_id`, `qty`, `is_payed`) VALUES
-(49, 3, 2, 3, 2, 1),
 (50, 3, 2, 3, 1, 1),
 (51, 3, 2, 3, 8, 1),
 (52, 3, 4, 3, 1, 1),
@@ -76,7 +94,8 @@ INSERT INTO `tb_keranjang` (`keranjang_id`, `keranjang_grup`, `product_id`, `use
 (64, 6, 4, 6, 1, 1),
 (65, 6, 3, 6, 1, 1),
 (66, 6, 2, 6, 1, 1),
-(67, 6, 6, 6, 1, 1);
+(67, 6, 6, 6, 1, 1),
+(69, 7, 6, 7, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -98,7 +117,7 @@ CREATE TABLE `tb_product` (
 --
 
 INSERT INTO `tb_product` (`product_id`, `product_name`, `product_desc`, `product_thumb`, `product_stok`, `product_price`) VALUES
-(1, 'Jas Slim Fit Dengan Kaus Polos', 'jas slim fit dengan kaus polos cocok dengan pria', 'jas2.jpg', 190, 180000),
+(1, 'Jas Slim Fit Dengan Kaus ', 'jas slim fit dengan kaus polos cocok dengan tai', '65e21d9f72e55.jpg', 1900, 18000000),
 (2, 'Jas Skinny Fit Dengan Kemeja', 'jas kinny fit cocok untuk pria ', 'jas1.jpg', 60, 150000),
 (3, 'Jas Linen Slim Fit Dengan Kaus Strip', 'jas slim fit dengan kaus strip cocok untuk pria', 'jas3.jpg', 149, 200000),
 (4, 'Kebaya Bali Modern (Putih)', 'kebaya bali modern', 'kebaya2.jpg', 119, 60000),
@@ -124,15 +143,6 @@ CREATE TABLE `tb_transaksi` (
   `total_pembayaran` varchar(256) NOT NULL DEFAULT '2'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tb_transaksi`
---
-
-INSERT INTO `tb_transaksi` (`transaksi_id`, `user_id`, `bank_id`, `keranjang_grup`, `no_telepon`, `transaksi_alamat`, `tanggal_transaksi`, `status_pembayaran`, `bukti_pembayaran`, `total_pembayaran`) VALUES
-(43, 6, 2, 65, '08190192011', 'Jln. Kali', '2024-01-12', 1, '65a106f47119c.jpg', '200000'),
-(44, 6, 2, 66, '08123456789', 'Jln. Bangka', '2024-01-12', 2, '2', '2'),
-(45, 6, 2, 67, '089765876123', 'Jln. Kaliasem', '2024-01-12', 2, '2', '2');
-
 -- --------------------------------------------------------
 
 --
@@ -155,11 +165,18 @@ INSERT INTO `tb_user` (`user_id`, `username`, `fullname`, `password`, `role`) VA
 (3, 'user', 'admin1', '$2y$10$AD85JaIX8eK1qCkVe32n6epjiimfvi1f2t0Qb3itZ0ddskIiXyzFC', 2),
 (4, 'user2', 'admin2', '$2y$10$pcLiOwnbVDvY3a9jya.2e.QxJPkGZ1tSUSgLzxq3FI8rmjSD.GwjS', 2),
 (5, 'admin', 'administrator', '$2y$10$0oNEcilMYEcp39zm.5itDel.CmrtBpBBhoI7yrgWTkvp/ii8wCaBG', 1),
-(6, 'darma', 'darma sutha', '$2y$10$15U87ZJThBk2bFkN5IlqCepfpF.3vavnUy39eTJ0L1L2Oeq2eZkcW', 2);
+(6, 'darma', 'darma sutha', '$2y$10$15U87ZJThBk2bFkN5IlqCepfpF.3vavnUy39eTJ0L1L2Oeq2eZkcW', 2),
+(7, 'putrawibawa9', 'i gede putra wibawa', '$2y$10$jsSu6ON63Ocb6Q5XRBmHnuaiuYm9.4PsYyy8nnIEnrwjjKTfEjK76', 2);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  ADD PRIMARY KEY (`id_admin`);
 
 --
 -- Indexes for table `tb_bank`
@@ -201,6 +218,12 @@ ALTER TABLE `tb_user`
 --
 
 --
+-- AUTO_INCREMENT for table `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `tb_bank`
 --
 ALTER TABLE `tb_bank`
@@ -210,25 +233,25 @@ ALTER TABLE `tb_bank`
 -- AUTO_INCREMENT for table `tb_keranjang`
 --
 ALTER TABLE `tb_keranjang`
-  MODIFY `keranjang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `keranjang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `tb_product`
 --
 ALTER TABLE `tb_product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  MODIFY `transaksi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `transaksi_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
